@@ -6,7 +6,7 @@
 
 	{% load staticfiles %}
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.20">
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.22">
   <link rel="stylesheet" type="text/css" href="{% static "board/css/ch-manni.css" %}?v=1.19">
   {% if isMobile %}
     <link rel="stylesheet" type="text/css" href="{% static "board/css/highlight_m.css" %}?v=1.01">
@@ -31,11 +31,13 @@
     {% endif %}
 
     {% if reqThread %}
+      <div class="header">
       {% if isMobile %}
-        <a href="{{ headerLink }}"> <img class="headerImg_m" src="{{ headerPath }}" /> </a>
+        <a href="{{ headerLink }}" title="{{ headerLink }}"> <img class="headerImg_m" src="{{ headerPath }}" /> </a>
       {% else %}
-        <a href="{{ headerLink }}"> <img class="headerImg" src="{{ headerPath }}" /> </a>
+        <a href="{{ headerLink }}" title="{{ headerLink }}"> <img class="headerImg" src="{{ headerPath }}" /> </a>
       {% endif %}
+      </div>
     {% endif %}
     
     {% if not curBoard.readOnly or reqThread %}

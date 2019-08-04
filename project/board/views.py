@@ -24,7 +24,7 @@ def random_header():
 	import random, glob
 	staticDir = "/home/pi/Amadeus/"
 	image = random.choice(glob.glob('%s/static/board/img/headers/*.*' % staticDir)).replace(staticDir,"")
-	link = 'http://icst.salieri.me/%s/' % image.replace('/static/board/img/headers/', '').split('-')[0]
+	link = '/%s/' % image.replace('/static/board/img/headers/', '').split('-')[0]
 	return (image, link)
 
 # Create your views here.
