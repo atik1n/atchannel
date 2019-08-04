@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Gate of Steiner</title>
+
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.02">
+	<script type="text/javascript" src="{% static "board/js/script.js" %}?v=1.0"></script>
+</head>
+<body>
+	<h1> {{ sKey }} </h1>
+	<form action="" method="post" id="post-form">
+		{% csrf_token %}
+		<textarea name="text" rows=6 style="border: 1px solid #b2b2b2"></textarea>
+		<input type="submit" value="Post" class="atch-button btn-normal"/>
+	</form>
+</body>

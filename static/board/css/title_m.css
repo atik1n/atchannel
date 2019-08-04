@@ -1,0 +1,75 @@
+.atch-title {
+	width: 80vw;
+	display: block;
+	margin-top: 16px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 36px;
+	font-size: 8vw;
+	background: linear-gradient(to right, #81B5C5, #759DAB);
+	border-top: 6px solid #6d9dad;
+	border-bottom: 6px solid #6d9dad;
+	border-left: 4px solid #6d9dad;
+	border-right: 4px solid #6d9dad;
+	padding-top: 5px;
+	border-radius: 12px;
+	color: white;
+	text-align: center;
+}
+
+.at-title {
+	font-size: 10vw;
+	text-shadow:
+		-1px -1px 0 #B6A8BE,
+		1px -1px 0 #B6A8BE,
+		-1px 1px 0 #B6A8BE,
+		1px 1px 0 #B6A8BE;
+}
+
+.threads {
+	width: 90vw;
+	display: block;
+	margin-top: 8px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.featured {
+	width: 100%;
+	margin-left: -6px;
+	border: 6px solid #B6A8BE;
+	margin-bottom: 8px;
+}
+
+.thread-link {
+	color: black;
+	text-decoration: underline;
+	display: inline-block;
+}
+
+.threads-header {
+	background-color: #5B7F93;
+	color: white;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.threads-body {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.other {
+	display: block;
+	width: 100%;
+}
+
+.other-header {
+	color: #5B7F93;
+	text-decoration: none;
+}
+
+.threads-column {
+	display: block;
+	width: 100%;
+}

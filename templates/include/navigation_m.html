@@ -1,0 +1,18 @@
+	<div class="selection">
+		<a href="/" style="display: inline-block">Main</a>
+		<p style="display: inline-block">/ Board: </p>
+		<select onchange="document.location=this.options[this.selectedIndex].value">
+			<optgroup label="Navigation">
+				<option value='/'>Main</option>
+			</optgroup>
+			{% autoescape off %}
+			{% for key, value in dropList %}
+				<optgroup label="{{ key }}">
+						{% for board in value %}
+								<option value="/{{ board.0 }}"{{ board.1 }}>/{{ board.0 }}/</option>
+						{% endfor %}
+				</optgroup>
+			{% endfor %}
+			{% endautoescape %}
+		</select>
+	</div>

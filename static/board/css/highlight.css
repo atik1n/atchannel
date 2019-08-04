@@ -1,0 +1,11 @@
+pre {
+  margin: 0px;
+  padding: 4px;
+  white-space: pre-wrap;
+}
+
+.codehilite {
+  display: inline-block;
+  padding: 4px;
+  font-size: 14px;
+}

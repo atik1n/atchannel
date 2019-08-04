@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Internal Error</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.1">
+</head>
+<body>
+  <div class="error">
+    <img src={% static "board/img/404.png" %}>
+    <p>Error code: 500<br>Internal Server Error<br><br>Please, contact KuriGohan@atch.ga</p>
+  </div>
+
+	<div class="main">
+		<a href="http://icst.salieri.me"><p>Main page</p></a>
+	</div>
+</body>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>/{{ curBoard.link }}/ - {{ curBoard.name }}</title>
+
+	{% load staticfiles %}
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.20">
+  <link rel="stylesheet" type="text/css" href="{% static "board/css/ch-manni.css" %}?v=1.19">
+  {% if isMobile %}
+    <link rel="stylesheet" type="text/css" href="{% static "board/css/highlight_m.css" %}?v=1.01">
+  {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static "board/css/highlight.css" %}?v=1.01">
+  {% endif %}
+	<script type="text/javascript" src="{% static "board/js/script.js" %}?v=1.0"></script>
+
+	{% include "include/favicon.html" %}
+</head>
+<body>
+	<!--
+		The universe has a beginning, but no end. — Infinity.
+		Stars, too, have their own beginnings, but their own power results in their destruction. — Finite.
+		It is those who possess wisdom who are the greatest fools. History has shown us this.
+		You could say that this is the final warning from God to those who resist.
+	-->
+    {% if isMobile %}
+      {% include "include/navigation_m.html" %}
+    {% else %}
+      {% include "include/navigation.html" %}
+    {% endif %}
+
+    {% if reqThread %}
+      {% if isMobile %}
+        <a href="{{ headerLink }}"> <img class="headerImg_m" src="{{ headerPath }}" /> </a>
+      {% else %}
+        <a href="{{ headerLink }}"> <img class="headerImg" src="{{ headerPath }}" /> </a>
+      {% endif %}
+    {% endif %}
+    
+    {% if not curBoard.readOnly or reqThread %}
+    <div class="controls">
+      <button class="atch-button btn-normal" id="new-top" onclick="buttonFlip(this)">
+        new
+      </button>
+      <form action="" method="post" id="form-top" class="post-form" style="display: none;">
+        {% csrf_token %}
+      <div id="atch-form">
+        {% if not reqThread %}
+        <div class="form-line">
+          <div id="name-label">
+            subject:
+          </div>
+          <div style="display:table-cell;width:100%;">
+            <input id="subject" type="text" size=32 name="subject">
+          </div>
+        </div>
+        {% endif %}
+        <div class="form-line">
+          <div id="name-label">
+            name:
+          </div>
+          <div style="display:table-cell;width:100%;">
+            <input id="name-top" type="text" size=32 name="name" onKeyUp="return textChange(this)">
+          </div>
+        </div>
+        <textarea id="text-top" name="text" rows=6 onKeyUp="return textChange(this)"></textarea>
+        </div>
+        <input type="submit" value="Post" class="atch-button btn-normal"/>
+      </form>
+    </div>
+    {% endif %}
+
+    <div class="atch-posts">
+      {% autoescape off %}
+      {% if not reqThread %}
+        {% for thread in localThreads %}
+            <a href="thread/{{ thread.id }}#post-{{ thread.postCount|stringformat:"03d" }}" style="display: inline-block; color: blue;"><p class="text">{{ thread.title }}({{ thread.postCount }})</p></a>
+        {% endfor %}
+      {% else %}
+        <div style="margin-bottom:10px">
+          <a class="boardLink" href="/{{ curBoard.link }}">【{{ curBoard.link }}】</a> <p class="thread-title"> {{ curThread.title }} </p>
+        </div>
+        {% for post in localPosts %}
+        <div class="post">
+            <div class="postNumber" id="post-{{ post.number }}" onclick="addLink(this.id.substr(this.id.indexOf('-')+1))">
+                <p class="number">{{ post.number }} :</p>
+            </div>
+            <div class="postBody">
+                <div>
+                    {{ post.name }}
+                    {% if isMobile %}
+                    <br>
+                    <p class="postInfo">{{ post.publishionTime|date:"d.m.Y(D) H:i" }}:<span class="second">{{ post.publishionTime|date:"s" }}</p>
+                    <br>
+                    <p class="tripId" style="padding-left: 0px;">ID:{{ post.authorID }}</p>
+                    {% else %}
+                    <p class="postInfo">: {{ post.publishionTime|date:"d.m.Y(D) H:i" }}:<span class="second">{{ post.publishionTime|date:"s" }}</p><p class="tripId">ID:{{ post.authorID }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="postText">
+                      {{ post.text }}
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+              {% endautoescape %}
+    </div>
+
+    {% if reqThread %}
+    <div class="controls">
+      <button class="atch-button btn-normal" id="new-bottom" onclick="buttonFlip(this)">
+        new
+      </button>
+      <form action="" method="post" id="form-bottom" class="post-form" style="display: none;">
+        {% csrf_token %}
+      <div id="atch-form">
+        <div class="form-line">
+          <div id="name-label">
+            name:
+          </div>
+          <div style="display:table-cell;width:100%;">
+            <input id="name-bottom" type="text" size=32 name="name" onKeyUp="return textChange(this)">
+          </div>
+        </div>
+        <textarea id="text-bottom" name="text" rows=6 onKeyUp="return textChange(this)"></textarea>
+        </div>
+        <input type="submit" value="Post" class="atch-button btn-normal"/>
+      </form>
+    </div>
+    {% endif %}
+</body>

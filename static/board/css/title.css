@@ -1,0 +1,80 @@
+.atch-title {
+	width: 48vw;
+	display: block;
+	margin-top: 34px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 36px;
+	font-size: 5.5vw;
+	background: linear-gradient(to right, #85b5c5, #6d9dad);
+	border-top: 8px solid #6d9dad;
+	border-bottom: 8px solid #6d9dad;
+	border-left: 5px solid #6d9dad;
+	border-right: 5px solid #6d9dad;
+	padding-bottom: 4px;
+	border-radius: 2vw;
+	color: white;
+	text-align: center;
+}
+
+.at-title {
+	font-size: 8vw;
+	text-shadow:
+		-2px -2px 3px #B6A8BE,
+		2px -2px 3px #B6A8BE,
+		-2px 2px 3px #B6A8BE,
+		2px 2px 3px #B6A8BE;
+}
+
+.threads {
+	width: 86vw;
+	display: block;
+	margin-top: 12px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.featured {
+	width: 100%;
+	margin-left: -10px;
+	border: 10px solid #B6A8BE;
+	margin-bottom:10px;
+}
+
+.thread-link {
+	color: black;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.threads-header {
+	background-color: #5B7F93;
+	color: white;
+	padding: 5px;
+}
+
+.threads-body {
+	padding:5px;
+}
+
+.other {
+	display: block;
+	width: 100%;
+}
+
+.other-header {
+	color: #5B7F93;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.threads-column {
+	display: inline-block;
+	width: 47.5%;
+	vertical-align: top;
+}
+
+.threads-spacer {
+	display: inline-block;
+	width: 5%;
+}

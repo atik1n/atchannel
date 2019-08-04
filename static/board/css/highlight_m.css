@@ -1,0 +1,12 @@
+pre {
+  margin: 0px;
+  padding: 4px;
+}
+
+.codehilite {
+  display: block;
+  padding: 4px;
+  font-size: 14px;
+  overflow: auto;
+  white-space: nowrap;
+}

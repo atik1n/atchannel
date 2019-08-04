@@ -1,0 +1,7 @@
+<div class="selection">
+	<a href="/" style="display: inline-block; color: blue;">Main</a>
+	<p style="display: inline-block;">/ Boards: </p>
+	{% for board in localBoards %}
+		[<a href="/{{ board.link }}" style="display: inline-block; color: blue;">{{ board.link }}</a>]
+	{% endfor %}
+</div>
