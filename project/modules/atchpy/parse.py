@@ -71,3 +71,11 @@ def parseChan(curBoard):
 		result[cat.name] = tmp
 
 	return result.items()
+
+def parseThemes(curTheme, themes):
+	import re, glob
+	result = []
+	for theme in themes:
+		result.append([theme, theme == curTheme and 'selected="selected"' or ''])
+
+	return result

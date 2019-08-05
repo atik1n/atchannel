@@ -100,7 +100,7 @@ class AtchLinkInlineProcessor(InlineProcessor):
     a = etree.Element('a')
     a.text = '&gt;&gt;%s' % m.group(2)
     a.set('href', '#post-%s' % m.group(2))
-    a.set('style', 'color:blue;')
+    a.set('style', 'color:var(--link);')
     return a, m.start(0), m.end(0)
       
 class URLify(Preprocessor):

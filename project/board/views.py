@@ -14,6 +14,12 @@ from modules.atchpy.parse import *
 from modules.atchpy.post import *
 from modules.atchpy.trip import *
 
+import re, glob
+
+staticDir = "/home/pi/Amadeus/"
+stylesCH = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('%s/static/board/css/ch-*.css' % staticDir)]
+styles = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('%s/static/board/css/tb-*.css' % staticDir)]
+
 def test(request):
 	s = request.session
 	sKey = mktripcode(s.session_key)[:5]
@@ -21,8 +27,7 @@ def test(request):
 	return render(request, 'test.html', locals())
 
 def random_header():
-	import random, glob
-	staticDir = "/home/pi/Amadeus/"
+	import random
 	image = random.choice(glob.glob('%s/static/board/img/headers/*.*' % staticDir)).replace(staticDir,"")
 	link = '/%s/' % image.replace('/static/board/img/headers/', '').split('-')[0]
 	return (image, link)
@@ -81,8 +86,22 @@ def board(request):
 		return redirect(t)
 
 	headerPath, headerLink = random_header()
+  
+	styleCH = request.COOKIES.get('highlight_style')
+	if styleCH not in stylesCH:
+		styleCH = 'monokai'
+    
+	style = request.COOKIES.get('style')
+	if style not in styles:
+		style = 'atch'
 
-	return render(request, "board.html", locals())
+	dropThemes = parseThemes(style, styles)
+	dropCodeThemes = parseThemes(styleCH, stylesCH)
+	response = render(request, "board.html", locals())
+	response.set_cookie('highlight_style', styleCH)
+	response.set_cookie('style', style)
+
+	return response
 
 def index(request):
 	isMobile = mobileBrowser(request)

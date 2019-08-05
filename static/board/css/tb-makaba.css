@@ -1,0 +1,10 @@
+body {
+	--greentext: green;
+  --spoiler: #BBB;
+  --background: #EEE;
+  --maintext: #333;
+  --link: #FF6600;
+	--title: #004A99;
+  --form-background: #f5f5f5;
+	--form-color: #a9a9a9;
+}

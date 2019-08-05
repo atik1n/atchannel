@@ -1,18 +1,14 @@
-span.name {
-	color: darkviolet;
-}
-
 quote {
-	color: green;
+	color: var(--greentext);
 }
 
 spoiler {
-  background-color: #6e6e6e;
-  color: #6e6e6e;
+  background-color: var(--spoiler);
+  color: var(--spoiler);
 }
 
 spoiler:hover {
-  background-color: #dedede;
+  background-color: var(--background);
   color: black;
 }
 
@@ -23,9 +19,29 @@ p {
 hr {
 	border: 0px;
 	height: 1px;
-	background-color: #b2b2b2;
+	background-color: var(--form-color);
 	margin-top: 8px;
 	margin-bottom: 8px;
+}
+
+a:link {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--link);
+  text-decoration: underline;
 }
 
 .controls {
@@ -39,16 +55,23 @@ hr {
 	display: table;
 	width: 100%;
 	border: 0px;
-	border-bottom: 0.5px solid #b2b2b2;
+	border-bottom: 0.5px solid var(--form-color);
 	border-radius: none;
 }
 
 .selection {
-	margin-bottom: 8px;
+	border-bottom: 2px solid var(--spoiler);
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 6px;
+  background-color: var(--background);
 }
 
 .boardLink {
-	color: black;
+	color: var(--maintext);
 	text-decoration: none;
 	font-size: 18px;
 	display: inline-block;
@@ -57,7 +80,7 @@ hr {
 
 .thread-title {
 	font-size: 24px;
-	color: red;
+	color: var(--title);
 	display: inline-block;
 }
 
@@ -88,14 +111,14 @@ hr {
 
 .name {
 	font-size: 18px;
-	color: blue;
+	color: var(--link);
 	text-decoration: underline;
 	display: inline-block;
 }
 
 .name-sage {
 	font-size: 18px;
-	color: #6e6e6e;
+	color: var(--spoiler);
 	text-decoration: underline;
 	display: inline-block;
 }
@@ -112,7 +135,7 @@ hr {
 }
 
 .second {
-	color: #6e6e6e;
+	color: var(--spoiler);
 }
 
 .postText {
@@ -125,18 +148,19 @@ hr {
 .header {
   text-align: center;
   margin-bottom: 8px;
+  margin-top: 30px;
 }
 
 .headerImg {
 		display: inline;
     width: 300px;
-		border: 2px solid #b2b2b2;
+		border: 2px solid var(--form-color);
 }
 
 .headerImg_m {
     display: inline;
     width: 100%;
-		border: 2px solid #b2b2b2;
+		border: 2px solid var(--form-color);
 }
 
 .headerText {
@@ -172,7 +196,8 @@ input[type=submit], input[type=text], textarea {
 }
 
 body {
-	background-color: #dedede;
+	background-color: var(--background);
+  color: var(--maintext);
   padding: 6px;
 }
 
@@ -181,8 +206,8 @@ body {
 }
 
 #atch-form {
-	background-color: #eaeaea;
-	border: 0.5px solid #b2b2b2;
+	background-color: var(--form-background);
+	border: 0.5px solid var(--form-color);
 	border-radius: 4px;
 	margin-bottom: 5px;
 }
@@ -192,7 +217,7 @@ body {
 }
 
 #name-label {
-	color:#b2b2b2;
+	color:var(--form-color);
 	display:table-cell;
 	width:1px;
 	padding-right: 5px;
@@ -216,15 +241,15 @@ body {
 }
 
 .btn-pressed {
-	background-color: #eaeaea;
-	border: 0.5px solid #b2b2b2;
-	color: #b2b2b2;
+	background-color: var(--form-background);
+	border: 0.5px solid var(--form-color);
+	color: var(--form-color);
 }
 
 .btn-normal {
-	background: linear-gradient(#eaeaea, #d2d2d2);
-	border: 0.5px solid #b2b2b2;
-	color: black
+	background: linear-gradient(var(--form-background), var(--form-color));
+	border: 0.5px solid var(--form-color);
+	color: var(--maintext)
 }
 
 input[type=text] {

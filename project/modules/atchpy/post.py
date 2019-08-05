@@ -40,6 +40,7 @@ def postThread(request, curBoard, reqQuery, subj=True):
         p = postDB(name=postName, text=postText, number="001", thread=t, publishionTime=timezone.now(), authorID=aID)
         p.save()
         return 'http://icst.salieri.me/%s/thread/%s' % ('/'.join(reqQuery), t.id)
+    return 'icst.salieri.me/%s' % '/'.join(reqQuery)
 
 def postPost(request, curThread, reqQuery):
     post = request.POST
@@ -82,3 +83,4 @@ def postPost(request, curThread, reqQuery):
         p = postDB(name=postName, text=postText, number=postNumber, thread=curThread, authorID=aID)
         p.save()
         return 'http://icst.salieri.me/%s#post-%s' % ('/'.join(reqQuery), postNumber)
+    return 'http://icst.salieri.me/%s' % '/'.join(reqQuery)

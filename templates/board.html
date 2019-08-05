@@ -6,14 +6,19 @@
 
 	{% load staticfiles %}
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.22">
-  <link rel="stylesheet" type="text/css" href="{% static "board/css/ch-manni.css" %}?v=1.19">
+  {% with 'board/css/tb-'|add:style|add:'.css' as board_style %}
+  <link rel="stylesheet" type="text/css" href="{% static board_style %}?v=1.04">
+  {% endwith %}
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.27">
+  {% with 'board/css/ch-'|add:styleCH|add:'.css' as code_style %}
+  <link rel="stylesheet" type="text/css" href="{% static code_style %}?v=1.19">
+  {% endwith %}
   {% if isMobile %}
     <link rel="stylesheet" type="text/css" href="{% static "board/css/highlight_m.css" %}?v=1.01">
   {% else %}
     <link rel="stylesheet" type="text/css" href="{% static "board/css/highlight.css" %}?v=1.01">
   {% endif %}
-	<script type="text/javascript" src="{% static "board/js/script.js" %}?v=1.0"></script>
+	<script type="text/javascript" src="{% static "board/js/script.js" %}?v=1.04"></script>
 
 	{% include "include/favicon.html" %}
 </head>
@@ -30,15 +35,13 @@
       {% include "include/navigation.html" %}
     {% endif %}
 
-    {% if reqThread %}
-      <div class="header">
-      {% if isMobile %}
-        <a href="{{ headerLink }}" title="{{ headerLink }}"> <img class="headerImg_m" src="{{ headerPath }}" /> </a>
-      {% else %}
-        <a href="{{ headerLink }}" title="{{ headerLink }}"> <img class="headerImg" src="{{ headerPath }}" /> </a>
-      {% endif %}
-      </div>
+    <div class="header">
+    {% if isMobile %}
+      <a href="{{ headerLink }}" title="{{ headerLink }}"> <img class="headerImg_m" src="{{ headerPath }}" /> </a>
+    {% else %}
+      <a href="{{ headerLink }}" title="{{ headerLink }}"> <img class="headerImg" src="{{ headerPath }}" /> </a>
     {% endif %}
+    </div>
     
     {% if not curBoard.readOnly or reqThread %}
     <div class="controls">

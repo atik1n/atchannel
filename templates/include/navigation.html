@@ -1,7 +1,23 @@
 <div class="selection">
-	<a href="/" style="display: inline-block; color: blue;">Main</a>
+	<a href="/" style="display: inline-block; color: var(--link);">Main</a>
 	<p style="display: inline-block;">/ Boards: </p>
 	{% for board in localBoards %}
-		[<a href="/{{ board.link }}" style="display: inline-block; color: blue;">{{ board.link }}</a>]
+		[<a href="/{{ board.link }}" style="display: inline-block; color: var(--link);">{{ board.link }}</a>]
 	{% endfor %}
+  <p style="display: inline-block;">/ Code theme: </p>
+  <select onchange="setCHStyle(this.options[this.selectedIndex].value)">
+		{% autoescape off %}
+		{% for value in dropCodeThemes %}
+			<option value="{{ value.0 }}"{{ value.1 }}>{{ value.0 }}</option>
+		{% endfor %}
+		{% endautoescape %}
+	</select>
+  <p style="display: inline-block;">/ Theme: </p>
+  <select onchange="setStyle(this.options[this.selectedIndex].value)">
+		{% autoescape off %}
+		{% for value in dropThemes %}
+			<option value="{{ value.0 }}"{{ value.1 }}>{{ value.0 }}</option>
+		{% endfor %}
+		{% endautoescape %}
+	</select>
 </div>

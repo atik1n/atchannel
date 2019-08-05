@@ -1,6 +1,6 @@
 	<div class="selection">
-		<a href="/" style="display: inline-block">Main</a>
-		<p style="display: inline-block">/ Board: </p>
+		<a href="/" style="display: inline-block; color: var(--link);">Main</a>
+		<p style="display: inline-block;">/ </p>
 		<select onchange="document.location=this.options[this.selectedIndex].value">
 			<optgroup label="Navigation">
 				<option value='/'>Main</option>
@@ -12,6 +12,22 @@
 								<option value="/{{ board.0 }}"{{ board.1 }}>/{{ board.0 }}/</option>
 						{% endfor %}
 				</optgroup>
+			{% endfor %}
+			{% endautoescape %}
+		</select>
+    <p style="display: inline-block;">/ </p>
+    <select onchange="setCHStyle(this.options[this.selectedIndex].value)">
+			{% autoescape off %}
+			{% for value in dropCodeThemes %}
+				<option value="{{ value.0 }}"{{ value.1 }}>{{ value.0 }}</option>
+			{% endfor %}
+			{% endautoescape %}
+		</select>
+    <p style="display: inline-block;">/ </p>
+    <select onchange="setStyle(this.options[this.selectedIndex].value)">
+			{% autoescape off %}
+			{% for value in dropThemes %}
+				<option value="{{ value.0 }}"{{ value.1 }}>{{ value.0 }}</option>
 			{% endfor %}
 			{% endautoescape %}
 		</select>

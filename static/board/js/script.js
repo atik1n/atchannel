@@ -32,3 +32,21 @@ function addLink(number) {
 	top.value = top.value + " >>" + number
 	bottom.value = top.value
 }
+
+function setCHStyle(styleName) {
+  var expires = "";
+  var date = new Date();
+  date.setTime(date.getTime() + (365*24*60*60*1000));
+  expires = "; expires=" + date.toUTCString();
+  document.cookie = "highlight_style" + "=" + (styleName || "")  + expires + "; path=/";
+  window.location.reload(true);
+}
+
+function setStyle(styleName) {
+  var expires = "";
+  var date = new Date();
+  date.setTime(date.getTime() + (365*24*60*60*1000));
+  expires = "; expires=" + date.toUTCString();
+  document.cookie = "style" + "=" + (styleName || "")  + expires + "; path=/";
+  window.location.reload(true);
+}
