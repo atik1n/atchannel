@@ -32,8 +32,8 @@ jobs:
     - name: Run Unit Tests
       run: |
         cd project
-        python manage.py test board.tests_unit.py -v 2
+        python manage.py test board.tests_unit -v 2
     - name: Run Integration Tests
       run: |
         cd project
-        python manage.py test board.tests_integration.py -v 2
+        python manage.py test board.tests_integration -v 2
