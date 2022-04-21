@@ -12,7 +12,9 @@ import time
 
 def TSF_Client(test):
     def wrapper(*args, **kwargs):
-        c = webdriver.Chrome()
+        o = webdriver.ChromeOptions()
+        o.headless = True
+        c = webdriver.Chrome(options=o)
         c.implicitly_wait(5)
         test(c=c, *args, **kwargs)
         c.quit()
