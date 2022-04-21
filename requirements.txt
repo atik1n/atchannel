@@ -2,4 +2,3 @@ django
 markdown
 channels
 selenium
-django-nose

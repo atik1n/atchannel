@@ -119,182 +119,216 @@ class SystemTests(StaticLiveServerTestCase):
         self.assertFalse(self.exceptions)
         return (start, end)
     
-    @TSF_Client
-    def test_create_thread(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
     
-    @TSF_Client
-    def test_create_post(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_create_post(c)
-    
-    @TSF_Client
-    def test_create_post_link(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_create_post(c)
-        self.TSF_create_post(c, '>>1\n' + random_string())
-        self.assertTrue(c.page_source.find('/1'))
-        self.assertTrue(c.page_source.find('color:var(--link);'))
-    
-    @TSF_Client
-    def test_create_post_quote(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_create_post(c)
-        self.TSF_create_post(c, '>' + random_string())
-        self.assertTrue(c.page_source.find('<quote>'))
-    
-    @TSF_Client
-    def test_create_post_md(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_create_post(c)
-        self.TSF_create_post(c, '~~__||' + random_string() + '||__~~')
-        self.assertTrue(c.page_source.find('<del><ins><spoiler>'))
-        
-    @TSF_Client
-    def test_sync_post_fields(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        c.find_element_by_id('new-top').click()
-        c.find_element_by_id('new-bottom').click()
-        textTop = c.find_element_by_id('text-top')
-        textBottom = c.find_element_by_id('text-bottom')
-        textTop.send_keys(random_string())
-        time.sleep(1)
-        self.assertEquals(textTop.get_attribute("value"), textBottom.get_attribute("value"))
-        textBottom.send_keys(random_string())
-        time.sleep(1)
-        self.assertEquals(textTop.get_attribute("value"), textBottom.get_attribute("value"))
-    
-    @TSF_Client
-    def test_index_render(self, c):
-        template = '<a href="{}" class="other-header">{}</a>'
-        c.get(self.live_server_url)
-        for key, value in self.boards.items():
-            self.assertTrue(c.page_source.find(template.format(key, value)))
-    
-    @TSF_Client
-    def test_board_render(self, c):
-        b = self.random_board()
-        threads = []
-        for _ in range(5):
-            self.TSF_find_board_index(c, b)
-            threads += [random_string()]
-            self.TSF_create_thread(c, subject=threads[-1])
-        self.TSF_find_board_index(c, b)
-        template = '<p class="text">{}(1)</p>'
-        for thread in threads:
-            self.assertTrue(c.page_source.find(template.format(thread)))
-        
-    @TSF_Client
-    def test_thread_render(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        posts = []
-        for _ in range(5):
-            posts += [random_string()]
-            self.TSF_create_post(c, text=posts[-1])
-        self.assertEquals(len(c.find_elements_by_class_name('post')), len(posts) + 1)
-        template = '<div class="postText"><p>{}</p></div>'
-        for post in posts:
-            self.assertTrue(c.page_source.find(template.format(post)))
-    
-    @TSF_Client
-    def test_change_theme(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_change_theme(c, type='theme')
-    
-    @TSF_Client
-    def test_change_code_theme(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_change_theme(c, type='code_theme')
-    
-    @TSF_Client
-    def test_bump_all_boards(self, c):
-        for board in list(self.boards.values()):
-            self.TSF_find_board_index(c, board)
+    def test_create_thread(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
             self.TSF_create_thread(c)
+        _test()
+    
+    def test_create_post(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_create_post(c)
+        _test()
+    
+    def test_create_post_link(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_create_post(c)
+            self.TSF_create_post(c, '>>1\n' + random_string())
+            self.assertTrue(c.page_source.find('/1'))
+            self.assertTrue(c.page_source.find('color:var(--link);'))
+        _test()
+    
+    def test_create_post_quote(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_create_post(c)
+            self.TSF_create_post(c, '>' + random_string())
+            self.assertTrue(c.page_source.find('<quote>'))
+        _test()
+    
+    def test_create_post_md(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_create_post(c)
+            self.TSF_create_post(c, '~~__||' + random_string() + '||__~~')
+            self.assertTrue(c.page_source.find('<del><ins><spoiler>'))
+        _test()
+        
+    def test_sync_post_fields(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            c.find_element_by_id('new-top').click()
+            c.find_element_by_id('new-bottom').click()
+            textTop = c.find_element_by_id('text-top')
+            textBottom = c.find_element_by_id('text-bottom')
+            textTop.send_keys(random_string())
+            time.sleep(1)
+            self.assertEquals(textTop.get_attribute("value"), textBottom.get_attribute("value"))
+            textBottom.send_keys(random_string())
+            time.sleep(1)
+            self.assertEquals(textTop.get_attribute("value"), textBottom.get_attribute("value"))
+        _test()
+    
+    def test_index_render(self):
+        @TSF_Client
+        def _test(c):
+            template = '<a href="{}" class="other-header">{}</a>'
+            c.get(self.live_server_url)
+            for key, value in self.boards.items():
+                self.assertTrue(c.page_source.find(template.format(key, value)))
+        _test()
+    
+    def test_board_render(self):
+        @TSF_Client
+        def _test(c):
+            b = self.random_board()
+            threads = []
             for _ in range(5):
-                self.TSF_create_post(c)
-            self.assertEquals(len(c.find_elements_by_class_name('post')), 6)
-    
-    @TSF_Client
-    def test_boards_navigation(self, c):
-        self.TSF_find_board_index(c)
-        for board in list(self.boards.values()):
-            self.TSF_navigate_board(c, board)
-    
-    @TSF_Client
-    def test_banner(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        self.TSF_navigate_banner(c)
-    
-    @TSF_Client
-    def test_random_navigation(self, c):
-        loc = 0
-        for _ in range(20):
-            if loc == 0:
-                self.TSF_find_board_index(c)
-                loc == 1
-            elif loc == 1:
-                i = random.int(1, 10)
-                if i < 3:
-                    nav = c.find_element_by_id('nav-main')
-                    nav.click()
-                    loc == 0
-                elif i < 7:
-                    i = random.int(1, 10)
-                    if i < 6:
-                        self.TSF_navigate_board(c)
-                    else:
-                        self.TSF_navigate_banner(c)
-                else:
-                    self.TSF_navigate_thread(c)
-                    loc == 2
-            elif loc == 2:
-                i = random.int(1, 10)
-                if i < 6:
-                    nav = c.find_element_by_id('nav-main')
-                    nav.click()
-                    loc == 0
-                else:
-                    i = random.int(1, 10)
-                    if i < 6:
-                        self.TSF_navigate_board(c)
-                    else:
-                        self.TSF_navigate_banner(c)
-                    loc == 1
-    
-    @TSF_Client
-    def test_volume_posts(self, c):
-        self.TSF_find_board_index(c)
-        self.TSF_create_thread(c)
-        max_time = 0
-        for _ in range(50):
-            start = time.time()
-            self.TSF_create_post(c, pos='top')
-            end = time.time()
-            if end - start > max_time:
-                max_time = end - start
-        print('Maximum load time:', max_time)
-    
-    @TSF_Client
-    def test_volume_threads(self, c):
-        max_time = 0
-        board = self.random_board()
-        for _ in range(50):
-            start = time.time()
-            self.TSF_find_board_index(c, board)
+                self.TSF_find_board_index(c, b)
+                threads += [random_string()]
+                self.TSF_create_thread(c, subject=threads[-1])
+            self.TSF_find_board_index(c, b)
+            template = '<p class="text">{}(1)</p>'
+            for thread in threads:
+                self.assertTrue(c.page_source.find(template.format(thread)))
+        _test()
+        
+    def test_thread_render(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
             self.TSF_create_thread(c)
-            end = time.time()
-            if end - start > max_time:
-                max_time = end - start
-        print('Maximum load time:', max_time)
+            posts = []
+            for _ in range(5):
+                posts += [random_string()]
+                self.TSF_create_post(c, text=posts[-1])
+            self.assertEquals(len(c.find_elements_by_class_name('post')), len(posts) + 1)
+            template = '<div class="postText"><p>{}</p></div>'
+            for post in posts:
+                self.assertTrue(c.page_source.find(template.format(post)))
+        _test()
+    
+    def test_change_theme(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_change_theme(c, type='theme')
+        
+    def test_change_code_theme(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_change_theme(c, type='code_theme')
+        _test()
+    
+    def test_bump_all_boards(self):
+        @TSF_Client
+        def _test(c):
+            for board in list(self.boards.values()):
+                self.TSF_find_board_index(c, board)
+                self.TSF_create_thread(c)
+                for _ in range(5):
+                    self.TSF_create_post(c)
+                self.assertEquals(len(c.find_elements_by_class_name('post')), 6)
+        _test()
+    
+    def test_boards_navigation(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            for board in list(self.boards.values()):
+                self.TSF_navigate_board(c, board)
+        _test()
+    
+    def test_banner(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            self.TSF_navigate_banner(c)
+        _test()
+           
+    def test_random_navigation(self):
+        @TSF_Client
+        def _test(c):
+            loc = 0
+            for _ in range(20):
+                if loc == 0:
+                    self.TSF_find_board_index(c)
+                    loc == 1
+                elif loc == 1:
+                    i = random.int(1, 10)
+                    if i < 3:
+                        nav = c.find_element_by_id('nav-main')
+                        nav.click()
+                        loc == 0
+                    elif i < 7:
+                        i = random.int(1, 10)
+                        if i < 6:
+                            self.TSF_navigate_board(c)
+                        else:
+                            self.TSF_navigate_banner(c)
+                    else:
+                        self.TSF_navigate_thread(c)
+                        loc == 2
+                elif loc == 2:
+                    i = random.int(1, 10)
+                    if i < 6:
+                        nav = c.find_element_by_id('nav-main')
+                        nav.click()
+                        loc == 0
+                    else:
+                        i = random.int(1, 10)
+                        if i < 6:
+                            self.TSF_navigate_board(c)
+                        else:
+                            self.TSF_navigate_banner(c)
+                        loc == 1
+        _test()
+    
+    def test_volume_posts(self):
+        @TSF_Client
+        def _test(c):
+            self.TSF_find_board_index(c)
+            self.TSF_create_thread(c)
+            max_time = 0
+            for _ in range(50):
+                start = time.time()
+                self.TSF_create_post(c, pos='top')
+                end = time.time()
+                if end - start > max_time:
+                    max_time = end - start
+            print('Maximum load time:', max_time)
+        _test()
+    
+    def test_volume_threads(self):
+        @TSF_Client
+        def _test(c):
+            max_time = 0
+            board = self.random_board()
+            for _ in range(50):
+                start = time.time()
+                self.TSF_find_board_index(c, board)
+                self.TSF_create_thread(c)
+                end = time.time()
+                if end - start > max_time:
+                    max_time = end - start
+            print('Maximum load time:', max_time)
+        _test()
     

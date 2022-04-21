@@ -33,7 +33,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 INSTALLED_APPS = (
     'board',
     'channels',
-    'django_nose',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
