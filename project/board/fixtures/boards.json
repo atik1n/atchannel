@@ -1,0 +1,38 @@
+[
+    {
+        "model": "board.Board",
+        "pk": 1,
+        "fields": {
+            "link": "sci",
+            "name": "Наука",
+            "category": 1
+        }
+    },
+    {
+        "model": "board.Board",
+        "pk": 2,
+        "fields": {
+            "link": "math",
+            "name": "Математика",
+            "category": 1
+        }
+    },
+    {
+        "model": "board.Board",
+        "pk": 3,
+        "fields": {
+            "link": "b",
+            "name": "Бред",
+            "category": 2
+        }
+    },
+    {
+        "model": "board.Board",
+        "pk": 4,
+        "fields": {
+            "link": "anime",
+            "name": "Японская анимация",
+            "category": 2
+        }
+    }
+]

@@ -71,7 +71,7 @@
         </div>
         <textarea id="text-top" name="text" rows=6 onKeyUp="return textChange(this)"></textarea>
         </div>
-        <input type="submit" value="Post" class="atch-button btn-normal"/>
+        <input id="post-top" type="submit" value="Post" class="atch-button btn-normal"/>
       </form>
     </div>
     {% endif %}
@@ -80,7 +80,7 @@
       {% autoescape off %}
       {% if not reqThread %}
         {% for thread in localThreads %}
-            <a href="thread/{{ thread.id }}#post-{{ thread.postCount|stringformat:"03d" }}" style="display: inline-block; color: blue;"><p class="text">{{ thread.title }}({{ thread.postCount }})</p></a>
+            <a id="thread" href="thread/{{ thread.id }}#post-{{ thread.postCount|stringformat:"03d" }}" style="display: inline-block; color: blue;"><p class="text">{{ thread.title }}({{ thread.postCount }})</p></a>
         {% endfor %}
       {% else %}
         <div style="margin-bottom:10px">
@@ -133,7 +133,7 @@
         </div>
         <textarea id="text-bottom" name="text" rows=6 onKeyUp="return textChange(this)"></textarea>
         </div>
-        <input type="submit" value="Post" class="atch-button btn-normal"/>
+        <input id="post-bottom" type="submit" value="Post" class="atch-button btn-normal"/>
       </form>
     </div>
     {% endif %}

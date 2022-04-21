@@ -37,3 +37,7 @@ jobs:
       run: |
         cd project
         python manage.py test board.tests_integration -v 2
+    - name: Run System Tests
+      run: |
+        cd project
+        python manage.py test board.tests_system -v 2

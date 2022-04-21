@@ -16,7 +16,7 @@
 			{% endautoescape %}
 		</select>
     <p style="display: inline-block;">/ </p>
-    <select onchange="setCHStyle(this.options[this.selectedIndex].value)">
+    <select id="code_theme" onchange="setCHStyle(this.options[this.selectedIndex].value)">
 			{% autoescape off %}
 			{% for value in dropCodeThemes %}
 				<option value="{{ value.0 }}"{{ value.1 }}>{{ value.0 }}</option>
@@ -24,7 +24,7 @@
 			{% endautoescape %}
 		</select>
     <p style="display: inline-block;">/ </p>
-    <select onchange="setStyle(this.options[this.selectedIndex].value)">
+    <select id="theme" onchange="setStyle(this.options[this.selectedIndex].value)">
 			{% autoescape off %}
 			{% for value in dropThemes %}
 				<option value="{{ value.0 }}"{{ value.1 }}>{{ value.0 }}</option>

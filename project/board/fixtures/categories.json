@@ -1,0 +1,16 @@
+[
+    {
+        "model": "board.Category",
+        "pk": 1,
+        "fields": {
+            "name": "Тематическое"
+        }
+    },
+    {
+        "model": "board.Category",
+        "pk": 2,
+        "fields": {
+            "name": "Разное"
+        }
+    }
+]

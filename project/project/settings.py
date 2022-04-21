@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = (
     'board',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,7 +70,7 @@ TEMPLATES = [
 ROOT_URLCONF = 'project.urls'
 
 WSGI_APPLICATION = 'project.wsgi.application'
-
+ASGI_APPLICATION = "project.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -78,6 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        "TEST": {
+            "NAME": os.path.join(BASE_DIR, "db_test.sqlite3"),
+        },
     }
 }
 
