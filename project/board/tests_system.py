@@ -272,55 +272,6 @@ class SystemTests(StaticLiveServerTestCase):
                         self.TSF_navigate_banner(c)
                     loc == 1
     
-    def test_load(self):
-        @TSF_Client
-        def _post(c, board):
-            time.sleep(random.random() * 3)
-            self.TSF_find_board_index(c, board)
-            self.TSF_create_thread(c)
-            for _ in range(10):
-                time.sleep(1 + random.random() * 3)
-                while True:
-                    t = 1 + random.random() * 3
-                    c = 0
-                    try:
-                        time.sleep(t)
-                        self.TSF_create_post(c)
-                        break
-                    except:
-                        c += 1
-                        if c > 5:
-                            raise
-                        t *= 2
-        self.TSF_threading(_post, 10, board=self.random_board())
-        print('Execution time:', end - start)
-    
-    def test_stab(self):
-        @TSF_Client
-        def _post(c, board):
-            time.sleep(random.random() * 3)
-            self.TSF_find_board_index(c, board)
-            self.TSF_create_thread(c)
-            for _ in range(3):
-                for _ in range(10):
-                    while True:
-                        t = 1 + random.random() * 3
-                        c = 0
-                        try:
-                            time.sleep(t)
-                            self.TSF_create_post(c)
-                            break
-                        except:
-                            c += 1
-                            if c > 5:
-                                raise
-                            t *= 2
-                time.sleep(10)
-                for _ in range(50):
-                    self.TSF_create_post(c)
-        self.TSF_threading(_post, 10, board=self.random_board())
-        print('Execution time:', end - start)
-    
     @TSF_Client
     def test_volume_posts(self, c):
         self.TSF_find_board_index(c)
@@ -347,24 +298,3 @@ class SystemTests(StaticLiveServerTestCase):
                 max_time = end - start
         print('Maximum load time:', max_time)
     
-    def test_ddos(self): # God, save my CPU
-        @TSF_Client
-        def _post(c, board):
-            time.sleep(random.random() * 3)
-            self.TSF_find_board_index(c, board)
-            self.TSF_create_thread(c)
-            for _ in range(10):
-                while True:
-                    t = 1 + random.random() * 3
-                    c = 0
-                    try:
-                        time.sleep(t)
-                        self.TSF_create_post(c)
-                        break
-                    except:
-                        c += 1
-                        if c > 5:
-                            raise
-                        t *= 2
-        self.TSF_threading(_post, 25, board=self.random_board())
-        print('Execution time:', end - start)
