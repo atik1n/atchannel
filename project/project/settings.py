@@ -26,8 +26,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost']
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
 # Application definition
 
 INSTALLED_APPS = (

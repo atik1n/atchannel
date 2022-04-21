@@ -310,6 +310,7 @@ class SystemTests(StaticLiveServerTestCase):
             max_time = 0
             for _ in range(50):
                 start = time.time()
+                c.implicitly_wait(5)
                 self.TSF_create_post(c, pos='top')
                 end = time.time()
                 if end - start > max_time:
