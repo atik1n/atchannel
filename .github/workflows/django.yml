@@ -26,9 +26,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install braintree mysqlclient apprise
-    - name: Run Tests
-      run: |
         cd project
         python manage.py makemigrations
         python manage.py migrate
-        python manage.py test
+    - name: Run Unit Tests
+      run: |
+        python manage.py test board.tests_unit.py -v 2
+    - name: Run Integration Tests
+      run: |
+        python manage.py test board.tests_integration.py -v 2

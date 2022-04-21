@@ -13,6 +13,11 @@ random_string = lambda: ''.join(random.choices(
     string.ascii_uppercase + string.ascii_lowercase + string.digits, k=10
 ))
 
+random_ip = lambda: '{}.{}.{}.{}'.format(
+    random.randint(0, 255), random.randint(0, 255),
+    random.randint(0, 255), random.randint(0, 255)
+)
+
 def randomDB():
     for _ in range(5):
             categoryDB.objects.create(name=random_string())
@@ -65,7 +70,7 @@ class requestDummy():
         self.method = 'GET'
         self.META = {
             'HTTP_HOST': '127.0.0.1',
-            'REMOTE_ADDR': '127.0.0.1',
+            'REMOTE_ADDR': random_ip(),
             'HTTP_X_FORWARDED_FOR': False,
             'HTTP_USER_AGENT': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0',
         }
