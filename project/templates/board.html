@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>/{{ curBoard.link }}/ - {{ curBoard.name }}</title>
 
-	{% load staticfiles %}
+	{% load static %}
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   {% with 'board/css/tb-'|add:style|add:'.css' as board_style %}
   <link rel="stylesheet" type="text/css" href="{% static board_style %}?v=1.04">

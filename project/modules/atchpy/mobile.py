@@ -11,7 +11,7 @@ mobile_uas = [
 	'wapr','webc','winw','winw','xda','xda-'
 	]
 
-mobile_ua_hints = [ 'SymbianOS', 'Opera Mini', 'iPhone' ]
+mobile_ua_hints = [ 'SymbianOS', 'Opera Mini', 'iPhone', 'Mobile', 'Android' ]
 
 def test(request):
     ''' Super simple device detection, returns True for mobile devices '''

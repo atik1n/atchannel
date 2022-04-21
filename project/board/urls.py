@@ -1,10 +1,9 @@
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import url, include
+from django.urls import path, re_path, include
 
 from board import views as board
 
 urlpatterns = [
-	url(r'test/', board.test),
-	url(r'^.*/', board.board),
+	re_path(r'test/', board.test),
+	re_path(r'^.*/', board.board),
 ]

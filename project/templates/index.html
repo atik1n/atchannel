@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@channel</title>
+
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.03">
+  <link rel="stylesheet" type="text/css" href="{% static "board/css/tb-atch.css" %}?v=1.01">
+	{% if isMobile %}
+		<link rel="stylesheet" type="text/css" href="{% static "board/css/title_m.css" %}?v=1.03">
+	{% else %}
+		<link rel="stylesheet" type="text/css" href="{% static "board/css/title.css" %}?v=1.04">
+	{% endif %}
+	{% include "include/favicon.html" %}
+</head>
+<body>
+  <div class="atch-title">
+    <p style="display: inline-block; margin-top: -8px;"><span class="at-title">@</span>channel</p>
+  </div>
+  <div class="threads">
+	<div class="featured">
+		<div class="threads-header">
+			<p>Featured threads</p>
+		</div>
+		<div class="threads-body">
+			{% for t in recentThreads %}
+				<a href="{{ t.board.link }}/thread/{{ t.id }}#post-{{ t.postCount|stringformat:"03d" }}" class="thread-link">{{ t.title }}({{ t.postCount }})</a>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="threads-header">
+			<p>Theme boards</p>
+		</div>
+	<div class="other">
+			<div class="threads-column">
+				{% for b in localBoards.0 %}
+					<div style="margin-top: 4px;">
+						<a href="{{ b.0.link }}" class="other-header">{{ b.0.name }}</a>
+					</div>
+					<div>
+						{% for t in b.1 %}
+							<a href="{{ t.board.link }}/thread/{{ t.id }}#post-{{ t.postCount|stringformat:"03d" }}" class="thread-link">{{ t.title }}({{ t.postCount }})</a>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="threads-column" style="float: right;">
+				{% for b in localBoards.1 %}
+					<div style="margin-top: 4px;">
+						<a href="{{ b.0.link }}" class="other-header">{{ b.0.name }}</a>
+					</div>
+					<div>
+						{% for t in b.1 %}
+							<a href="{{ t.board.link }}/thread/{{ t.id }}#post-{{ t.postCount|stringformat:"03d" }}" class="thread-link">{{ t.title }}({{ t.postCount }})</a>
+						{% endfor %}
+					</div>
+					{% endfor %}
+			</div>
+	</div>
+  </div>
+</body>

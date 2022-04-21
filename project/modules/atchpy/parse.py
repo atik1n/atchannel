@@ -8,28 +8,7 @@ import markdown
 import md
 
 def destroyEnters(text):
-    done = False
-    while not done:
-        i = 0
-        if text[0] == " ":
-            text = text[1:]
-        else:
-            i += 1
-        if text[0:2] == "\n":
-            text = text[2:]
-        else:
-            i += 1
-        if text[-2:] == "\n":
-            text = text[:-2]
-        else:
-            i += 1
-        if text[-1:] == " ":
-            text = text[:-1]
-        else:
-            i += 1
-        if i == 4:
-            done = True
-    return text
+    return text.strip()
 
 def parseDB(db, parent):
 	posts = db.objects.filter(thread=parent)[::-1]

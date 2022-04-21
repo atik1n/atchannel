@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Not found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static "board/css/index.css" %}?v=1.2">
+</head>
+<body>
+  <div class="error">
+    <img src={% static "board/img/404.png" %}>
+    <p>Error code: 404<br>Page not found</p>
+  </div>
+
+  <div class="main">
+    <a href="http://icst.salieri.me"><p>Main page</p></a>
+  </div>
+</body>

@@ -1,8 +1,11 @@
 def mktripcode(pw):
-	import crypt
+	import hashlib
 	pw = pw[:8]
 	salt = (pw + "H.")[1:3]
-	trip = crypt.crypt(pw, salt)
+	m = hashlib.sha512()
+	m.update(salt.encode())
+	m.update(pw.encode())
+	trip = m.hexdigest()
 	return trip[-10:]
 
 def mkID(sKey, threadID):

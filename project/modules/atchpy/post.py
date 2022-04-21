@@ -39,8 +39,8 @@ def postThread(request, curBoard, reqQuery, subj=True):
         aID = mkID(request.session.session_key, t.id)[:9]
         p = postDB(name=postName, text=postText, number="001", thread=t, publishionTime=timezone.now(), authorID=aID)
         p.save()
-        return 'http://icst.salieri.me/%s/thread/%s' % ('/'.join(reqQuery), t.id)
-    return 'icst.salieri.me/%s' % '/'.join(reqQuery)
+        return 'http://%s/%s/thread/%s' % (request.META['HTTP_HOST'], '/'.join(reqQuery), t.id)
+    return 'http://%s/%s' % (request.META['HTTP_HOST'], '/'.join(reqQuery))
 
 def postPost(request, curThread, reqQuery):
     post = request.POST
@@ -82,5 +82,5 @@ def postPost(request, curThread, reqQuery):
 
         p = postDB(name=postName, text=postText, number=postNumber, thread=curThread, authorID=aID)
         p.save()
-        return 'http://icst.salieri.me/%s#post-%s' % ('/'.join(reqQuery), postNumber)
-    return 'http://icst.salieri.me/%s' % '/'.join(reqQuery)
+        return 'http://%s/%s#post-%s' % (request.META['HTTP_HOST'], '/'.join(reqQuery), postNumber)
+    return 'http://%s/%s' % (request.META['HTTP_HOST'], '/'.join(reqQuery))

@@ -14,11 +14,10 @@ from modules.atchpy.parse import *
 from modules.atchpy.post import *
 from modules.atchpy.trip import *
 
-import re, glob
+import re, glob, os
 
-staticDir = "/home/pi/Amadeus/"
-stylesCH = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('%s/static/board/css/ch-*.css' % staticDir)]
-styles = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('%s/static/board/css/tb-*.css' % staticDir)]
+stylesCH = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('static/board/css/ch-*.css')]
+styles = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('static/board/css/tb-*.css')]
 
 def test(request):
 	s = request.session
@@ -28,7 +27,7 @@ def test(request):
 
 def random_header():
 	import random
-	image = random.choice(glob.glob('%s/static/board/img/headers/*.*' % staticDir)).replace(staticDir,"")
+	image = '/' + random.choice(glob.glob('static/board/img/headers/*.*')).replace('\\', '/')
 	link = '/%s/' % image.replace('/static/board/img/headers/', '').split('-')[0]
 	return (image, link)
 
@@ -107,7 +106,7 @@ def index(request):
 	isMobile = mobileBrowser(request)
 
 	if list(request.GET.items()):
-		return HttpResponse('SOSI HUI BYDLO', status=401)
+		return HttpResponse('GO AWAY', status=401)
 
 	localBoards = boardDB.objects.all()
 	allBoards = [[],[]]
