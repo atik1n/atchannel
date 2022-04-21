@@ -272,3 +272,10 @@ class AtchTestCase(TestCase):
                 request.path = b.link + '/thread/' + str(t.id)
                 board(request)
     
+    def test_index(self):
+        from board.views import index
+        request = requestDummy()
+        index(request)
+        request.GET[random_string()] = random_string()
+        response = index(request)
+        self.assertEqual(response.status_code, 401)

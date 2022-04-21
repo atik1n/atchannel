@@ -62,6 +62,7 @@ class requestDummy():
         
     def __init__(self):
         self.POST = {}
+        self.GET = {}
         self.COOKIES = {
             'highlight_style': '',
             'style': '',

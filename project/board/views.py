@@ -19,12 +19,6 @@ import re, glob, os
 stylesCH = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('static/board/css/ch-*.css')]
 styles = [re.findall(r'(?:-)(.*?)(?:.css)', s)[0] for s in glob.glob('static/board/css/tb-*.css')]
 
-def test(request):
-	s = request.session
-	sKey = mktripcode(s.session_key)[:5]
-
-	return render(request, 'test.html', locals())
-
 def random_header():
 	import random
 	image = '/' + random.choice(glob.glob('static/board/img/headers/*.*')).replace('\\', '/')
