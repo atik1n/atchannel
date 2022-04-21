@@ -31,7 +31,9 @@ jobs:
         python manage.py migrate
     - name: Run Unit Tests
       run: |
+        cd project
         python manage.py test board.tests_unit.py -v 2
     - name: Run Integration Tests
       run: |
+        cd project
         python manage.py test board.tests_integration.py -v 2
