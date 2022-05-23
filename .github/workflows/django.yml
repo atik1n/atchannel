@@ -44,8 +44,3 @@ jobs:
       run: |
         cd project
         python manage.py test board.tests_system -v 2 --noinput
-    - name: Run Extreme Tests
-      continue-on-error: true
-      run: |
-        cd project
-        python manage.py test board.tests_system_extreme -v 2 --noinput
