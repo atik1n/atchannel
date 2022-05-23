@@ -27,7 +27,27 @@ class MainRequest(TestCase):
             'subject': random_string(),
         }
         response = c.post('/' + b.link + '/', data=payload, **meta)
+        query = response.headers['location'].split('/')
+        p = self.postDB.objects.get(number='001', thread=query[-1])
+        t = self.threadDB.objects.get(id=query[-1])
         self.assertEquals(response.status_code, 302)
+        self.assertEquals(p.name, payload['name'])
+        self.assertEquals(p.text, payload['text'])
+        self.assertEquals(t.title, payload['subject'])
+        
+        payload = {
+            'name': random_string() * 7,
+            'text': random_string() * 1600,
+            'subject': random_string() * 7,
+        }
+        response = c.post('/' + b.link + '/', data=payload, **meta)
+        query = response.headers['location'].split('/')
+        p = self.postDB.objects.get(number='001', thread=query[-1])
+        t = self.threadDB.objects.get(id=query[-1])
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(p.name, payload['name'][:64])
+        self.assertEquals(p.text, payload['text'][:15000])
+        self.assertEquals(t.title, payload['subject'][:64])
     
     def test_post_post(self):
         c = Client()
@@ -37,19 +57,38 @@ class MainRequest(TestCase):
             'text': random_string(),
         }
         response = c.post('/' + t.board.link + '/thread/' + str(t.id) + '/', data=payload, **meta)
+        query = response.headers['location'].split('/')
+        p = self.postDB.objects.get(number=query[-1].split('-')[-1], thread=t.id)
         self.assertEquals(response.status_code, 302)
+        self.assertEquals(p.name, payload['name'])
+        self.assertEquals(p.text, payload['text'])
+        
+        payload = {
+            'name': random_string() * 7,
+            'text': random_string() * 1600,
+        }
+        response = c.post('/' + t.board.link + '/thread/' + str(t.id) + '/', data=payload, **meta)
+        query = response.headers['location'].split('/')
+        p = self.postDB.objects.get(number=query[-1].split('-')[-1], thread=t.id)
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(p.name, payload['name'][:64])
+        self.assertEquals(p.text, payload['text'][:15000])
     
     def test_board(self):
         c = Client()
         b = random.choice(self.boardDB.objects.all())
         response = c.get('/' + b.link + '/', **meta)
         self.assertEquals(response.status_code, 200)
+        response = c.get('/' + random_string() * 2 + '/', **meta)
+        self.assertEquals(response.status_code, 404)
     
     def test_thread(self):
         c = Client()
         t = random.choice(self.threadDB.objects.all())
         response = c.get('/' + t.board.link + '/thread/' + str(t.id), **meta)
         self.assertEquals(response.status_code, 200)
+        response = c.get('/' + random_string() * 2 + '/thread/' + str(t.id), **meta)
+        self.assertEquals(response.status_code, 404)
     
     def test_mobile(self):
         c = Client()
@@ -96,7 +135,7 @@ class MainRequest(TestCase):
     
     def test_garbage_block(self):
         c = Client()
-        response = c.get('/', data={random_string: random_string}, **meta)
+        response = c.get('/', data={random_string: random_string()}, **meta)
         self.assertEquals(response.status_code, 401)
         
     def test_tripcode_consistent(self):
@@ -112,7 +151,7 @@ class MainRequest(TestCase):
         trip = content.find(payload['name'].split('#')[0]) + len(payload['name'].split('#')[0])
         trip = content[trip + 1:content.find('<', trip)]
         
-        payload['text'] = random_string
+        payload['text'] = random_string()
         response = c.post('/' + t.board.link + '/thread/' + str(t.id) + '/', data=payload, **meta)
         response = c.get(response.url, **meta)
         content = response.content.decode()

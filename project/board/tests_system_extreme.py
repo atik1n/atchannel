@@ -12,7 +12,11 @@ import time
 
 def TSF_Client(test):
     def wrapper(*args, **kwargs):
-        c = webdriver.Chrome()
+        o = webdriver.ChromeOptions()
+        o.add_argument('--headless')
+        o.add_argument('--no-sandbox')
+        o.add_argument('--disable-dev-shm-usage')
+        c = webdriver.Chrome(chrome_options=o)
         c.implicitly_wait(5)
         test(c=c, *args, **kwargs)
         c.quit()
