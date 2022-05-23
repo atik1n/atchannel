@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import threading
@@ -12,9 +13,9 @@ import time
 
 def TSF_Client(test):
     def wrapper(*args, **kwargs):
-        o = webdriver.ChromeOptions()
-        o.add_argument('--headless')
+        o = Options()
         o.add_argument('--no-sandbox')
+        o.add_argument('--headless')
         o.add_argument('--disable-dev-shm-usage')
         c = webdriver.Chrome(chrome_options=o)
         c.implicitly_wait(5)
